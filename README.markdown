@@ -1,7 +1,7 @@
 # PredisExtension #
 
-This extension for the __(Silex)[http://silex-project.org]__ microframework enables developers to easily use
-__(Predis)[http://github.com/nrk/predis]__ in their applications to connect to __(Redis)[http://redis.io]__.
+This extension for the __[Silex](http://silex-project.org)__ microframework enables developers to easily use
+__[Predis](http://github.com/nrk/predis)__ in their applications to connect to __[Redis](http://redis.io)__.
 
 
 ## Getting started ##
