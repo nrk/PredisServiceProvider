@@ -9,10 +9,10 @@ $app = new Silex\Application();
 
 /** bootstrap **/
 $app['autoloader']->registerNamespaces(array(
-    'Predis\Silex' => __VENDOR__.'/PredisExtension/lib',
+    'Predis\Silex' => __VENDOR__.'/PredisServiceProvider/lib',
 ));
 
-$app->register(new Predis\Silex\PredisExtension(), array(
+$app->register(new Predis\Silex\PredisServiceProvider(), array(
     'predis.class_path' => __VENDOR__.'/Predis/lib',
     'predis.parameters' => 'tcp://127.0.0.1:6379/',
     'predis.options'    => array(

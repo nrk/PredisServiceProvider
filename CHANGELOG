@@ -1,0 +1,6 @@
+v0.2.0 (2011-10-02)
+  * Renamed PredisExtension to PredisServiceProvider after internal changes
+    in the naming of some classes and interfaces of Silex.
+
+v0.1.0 (2011-05-07)
+  * Initial release.

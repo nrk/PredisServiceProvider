@@ -3,13 +3,13 @@
 namespace Predis\Silex;
 
 use Silex\Application;
-use Silex\ExtensionInterface;
+use Silex\ServiceProviderInterface;
 
 use Predis\Client;
 use Predis\ClientOptions;
 use Predis\ConnectionParameters;
 
-class PredisExtension implements ExtensionInterface
+class PredisServiceProvider implements ServiceProviderInterface
 {
     public function register(Application $app)
     {
