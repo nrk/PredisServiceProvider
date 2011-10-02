@@ -1,3 +1,6 @@
+v0.2.1 (2011-10-02)
+  * Added support for Composer to manage installation and dependencies.
+
 v0.2.0 (2011-10-02)
   * Renamed PredisExtension to PredisServiceProvider after internal changes
     in the naming of some classes and interfaces of Silex.
