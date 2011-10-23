@@ -14,7 +14,22 @@ $app['autoloader']->registerNamespaces(array(
 
 $app->register(new Predis\Silex\PredisServiceProvider(), array(
     'rdb.class_path' => __VENDOR__.'/Predis/lib',
-    'rdb.parameters' => 'tcp://127.0.0.1:6379/',
+    'rdbs.parameters' => array(
+        'first' => array(
+            'host'      => '127.0.0.1',
+            'port'      => 6379,
+            'database'  => 0,
+        ),
+        'second' => array(
+            'host'      => '127.0.0.1',
+            'port'      => 6379,
+            'database'  => 1,
+        ),
+        'third' => array(
+            'host'      => '127.0.0.1',
+            'port'      => 6380,
+        ),
+    ),
     'rdb.options'    => array(
         'profile' => '2.2',
         'prefix'  => 'silex:',
@@ -23,7 +38,11 @@ $app->register(new Predis\Silex\PredisServiceProvider(), array(
 
 /** routes **/
 $app->get('/', function() use($app) {
-    return var_export($app['rdb']->info(), true);
+    var_export($app['rdbs']['first']->info(), true);
+    var_export($app['rdbs']['second']->info(), true);
+    var_export($app['rdbs']['third']->info(), true);
+
+    return '';
 });
 
 /** run application **/
