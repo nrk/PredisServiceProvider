@@ -12,13 +12,11 @@ $app['autoloader']->registerNamespaces(array(
     'Predis\Silex' => __VENDOR__.'/PredisServiceProvider/lib',
 ));
 
-$app->register(new Predis\Silex\PredisServiceProvider(), array(
-    'predis.class_path' => __VENDOR__.'/Predis/lib',
-    'predis.parameters' => 'tcp://127.0.0.1:6379/',
-    'predis.options'    => array(
-        'profile' => '2.2', 
+$app->register(new Predis\Silex\PredisServiceProvider('tcp://127.0.0.1:6379/', array(
+        'profile' => '2.2',
         'prefix'  => 'silex:',
-    ),
+    )), array(
+    'predis.class_path' => __VENDOR__.'/Predis/lib',
 ));
 
 /** routes **/
