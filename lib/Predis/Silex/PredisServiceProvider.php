@@ -79,7 +79,9 @@ class PredisServiceProvider implements ServiceProviderInterface
                 });
 
                 if (isset($args['default']) && $args['default'] == true) {
-                    $app['predis'] = $app["predis.$alias"];
+                    $app['predis'] = $app->share(function() use($app, $alias) {
+                        return $app["predis.$alias"];
+                    });
                 }
             }
         }
