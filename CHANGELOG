@@ -1,3 +1,7 @@
+v0.2.2 (2011-11-xx)
+  * Added the ability to specify multiple clients using 'predis.clients' with
+    an array of connection parameters and client options for each client.
+
 v0.2.1 (2011-10-02)
   * Added support for Composer to manage installation and dependencies.
 

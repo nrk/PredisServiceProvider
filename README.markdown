@@ -13,8 +13,8 @@ with older versions of Silex you can download the previous __v0.1.0__.
 ## Getting started ##
 
 Starting to use this service provider is quite easy. Supposing that you already have the scheleton of your Silex
-application ready, you just need to register the __Predis\Silex__ namespace to point to the path of where
-the source code of the provider has been placed and then add an instance to the application object:
+application ready, you just need to register the `Predis\Silex` namespace to point to the path of where the source
+code of the provider has been placed and then add an instance to the application object:
 
 ``` php
 <?php
@@ -31,8 +31,34 @@ $app->register(new Predis\Silex\PredisServiceProvider(), array(
 /* ... */
 ```
 
-The __predis.class_path__ option lets you specify where to look for Predis. Both __predis.parameters__ and
-__predis.options__ are optional and they accept the same values of the constructor method of Predis\Client.
+The `predis.class_path` option lets you specify where to look for Predis. Both `predis.parameters` and
+`predis.options` are optional and they accept the same values of the constructor method of `Predis\Client`.
+
+It is also possible to define multiple clients identified by aliases with their own parameters and options
+using `predis.clients`. Each client instance will be initialized lazily upon first access:
+
+``` php
+<?php
+/* ... */
+$app->register(new Predis\Silex\PredisServiceProvider(), array(
+    'predis.class_path' => __DIR__.'/../vendor/Predis/lib',
+    'predis.clients' => array(
+        'first' => 'tcp://127.0.0.1:6379',
+        'second' => array(
+            'host' => '127.0.0.1',
+            'port' => 6380,
+        ),
+        'third' => array(
+            'parameters' => 'tcp://127.0.0.1:6381',
+            'options' => array(
+                'profile' => 'dev',
+                'prefix' => 'silex:',
+            ),
+        ),
+    ),
+));
+/* ... */
+```
 
 If you are looking for simple but complete examples of how to use this extension you can have a look at the
 _examples_ directory that is included in the repository.
@@ -52,6 +78,11 @@ _examples_ directory that is included in the repository.
 ## Author ##
 
 - [Daniele Alessandri](mailto:suppakilla@gmail.com) ([twitter](http://twitter.com/JoL1hAHN))
+
+
+## Contributors ##
+
+- Jérôme Macias ([github](http://github.com/jeromemacias))
 
 
 ## License ##
