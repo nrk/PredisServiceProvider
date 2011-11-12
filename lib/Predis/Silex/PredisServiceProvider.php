@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the PredisServiceProvider package.
+ *
+ * (c) Daniele Alessandri <suppakilla@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Predis\Silex;
 
 use Silex\Application;
@@ -9,6 +18,11 @@ use Predis\Client;
 use Predis\ClientOptions;
 use Predis\ConnectionParameters;
 
+/**
+ * Exposes one or more client instances of Predis to Silex.
+ *
+ * @author Daniele Alessandri <suppakilla@gmail.com>
+ */
 class PredisServiceProvider implements ServiceProviderInterface
 {
     protected static $reserved = array(
@@ -20,6 +34,9 @@ class PredisServiceProvider implements ServiceProviderInterface
 
     protected $prefix;
 
+    /**
+     * @param string $predix Prefix name used to register the service provider in Silex.
+     */
     public function __construct($prefix = 'predis')
     {
         if (empty($prefix)) {
@@ -29,6 +46,9 @@ class PredisServiceProvider implements ServiceProviderInterface
         $this->prefix = $prefix;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function register(Application $app)
     {
         $prefix = $this->prefix;
