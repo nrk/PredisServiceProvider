@@ -111,7 +111,7 @@ class PredisServiceProvider implements ServiceProviderInterface
                     return $initializer($args);
                 });
 
-                if (isset($args['default']) && $args['default'] == true) {
+                if (is_array($args) && isset($args['default']) && $args['default'] == true) {
                     $app[$prefix] = $app->share(function() use($app, $prefix, $alias) {
                         return $app["$prefix.$alias"];
                     });
