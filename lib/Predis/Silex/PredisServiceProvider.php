@@ -26,10 +26,8 @@ use Predis\ConnectionParameters;
 class PredisServiceProvider implements ServiceProviderInterface
 {
     protected static $reserved = array(
-        'parameters',
-        'options',
-        'class_path',
-        'clients',
+        'parameters', 'options', 'default_parameters', 'default_options',
+        'class_path', 'clients', 'client_initializer',
     );
 
     protected $prefix;
