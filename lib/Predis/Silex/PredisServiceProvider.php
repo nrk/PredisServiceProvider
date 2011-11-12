@@ -11,14 +11,14 @@ use Predis\ConnectionParameters;
 
 class PredisServiceProvider implements ServiceProviderInterface
 {
-    protected static $invalidAliases = array(
+    protected static $reserved = array(
         'parameters',
         'options',
         'class_path',
         'clients',
     );
 
-    protected $_prefix;
+    protected $prefix;
 
     public function __construct($prefix = 'predis')
     {
@@ -26,12 +26,12 @@ class PredisServiceProvider implements ServiceProviderInterface
             throw new \InvalidArgumentException('The specified prefix is not valid.');
         }
 
-        $this->_prefix = $prefix;
+        $this->prefix = $prefix;
     }
 
     public function register(Application $app)
     {
-        $prefix = $this->_prefix;
+        $prefix = $this->prefix;
 
         if (isset($app["$prefix.class_path"])) {
             $app['autoloader']->registerNamespace('Predis', $app["$prefix.class_path"]);
@@ -75,7 +75,7 @@ class PredisServiceProvider implements ServiceProviderInterface
 
         if (isset($app["$prefix.clients"])) {
             foreach ($app["$prefix.clients"] as $alias => $args) {
-                if (in_array($alias, self::$invalidAliases, true)) {
+                if (in_array($alias, self::$reserved, true)) {
                     throw new \InvalidArgumentException("The specified alias '$alias' is not valid.");
                 }
 
