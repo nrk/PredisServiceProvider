@@ -1,4 +1,4 @@
-v0.2.2 (2011-11-xx)
+v0.2.2 (2011-11-13)
   * Added the ability to specify multiple clients using 'predis.clients' with
     an array of connection parameters and client options for each client.
 

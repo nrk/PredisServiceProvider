@@ -4,7 +4,7 @@
     "description": "Predis service provider for the Silex microframework",
     "keywords": ["silex", "redis"],
     "homepage": "https://github.com/nrk/PredisServiceProvider",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "license": "MIT",
     "authors": [
         {
