@@ -61,7 +61,19 @@ $app->register(new Predis\Silex\PredisServiceProvider(), array(
 ```
 
 If you are looking for simple but complete examples of how to use this extension you can have a look at the
-_examples_ directory that is included in the repository.
+_examples_ directory that is included in the repository, or the test suite in the _tests_ directory.
+
+
+## Testing ##
+
+In order to be able to run the test suite of the provider you must download [Composer](http://packagist.org/about-composer)
+in the root of the repository and then install the needed dependencies.
+
+```bash
+  $ wget http://getcomposer.org/composer.phar
+  $ php composer.phar install
+  $ phpunit
+```
 
 
 ## Dependencies ##

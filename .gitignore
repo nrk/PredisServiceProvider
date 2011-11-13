@@ -1,1 +1,4 @@
+composer.phar
+composer.lock
+vendor/
 experiments/
