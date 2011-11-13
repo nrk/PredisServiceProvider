@@ -13,6 +13,9 @@
             "homepage": "http://clorophilla.net"
         }
     ],
+    "autoload": {
+        "psr-0": {"Predis\\Silex": "lib/"}
+    },
     "require": {
         "php": ">=5.3.2",
         "predis/predis": ">=0.7.0-dev",
