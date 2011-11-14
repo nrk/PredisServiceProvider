@@ -10,5 +10,4 @@
  */
 
 require_once __DIR__.'/../vendor/.composer/autoload.php';
-require_once __DIR__.'/../vendor/pimple/pimple/lib/Pimple.php';
 require_once __DIR__.'/../lib/Predis/Silex/PredisServiceProvider.php';
