@@ -1,3 +1,8 @@
+v0.2.3 (2011-12-11)
+  * There are no actual changes in the code of this release, aside from a bump
+    in the required version of Predis in the composer.json file to target the
+    tagged release of v0.7.0,
+
 v0.2.2 (2011-11-13)
   * Added the ability to specify multiple clients using 'predis.clients' with
     an array of connection parameters and client options for each client.

@@ -79,7 +79,7 @@ in the root of the repository and then install the needed dependencies.
 ## Dependencies ##
 
 - PHP >= 5.3.2
-- Predis >= 0.7.0-dev
+- Predis >= 0.7.0
 
 
 ## Project links ##
