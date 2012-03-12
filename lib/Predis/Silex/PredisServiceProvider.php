@@ -15,8 +15,6 @@ use Silex\Application;
 use Silex\ServiceProviderInterface;
 
 use Predis\Client;
-use Predis\ClientOptions;
-use Predis\ConnectionParameters;
 
 /**
  * Exposes one or more client instances of Predis to Silex.
