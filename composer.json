@@ -17,7 +17,7 @@
     },
     "require": {
         "php": ">=5.3.2",
-        "predis/predis": ">=0.7.0",
-        "silex/silex": ">=1.0.0-dev"
+        "predis/predis": "0.7.*",
+        "silex/silex": "1.0.*"
     }
 }
