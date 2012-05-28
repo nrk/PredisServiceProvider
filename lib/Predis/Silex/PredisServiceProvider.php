@@ -45,6 +45,13 @@ class PredisServiceProvider implements ServiceProviderInterface
     /**
      * {@inheritdoc}
      */
+    public function boot(Application $app)
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function register(Application $app)
     {
         $prefix = $this->prefix;
