@@ -1,3 +1,7 @@
+v0.2.4 (2011-06-01)
+  * Implemented an empty Silex\ServiceProviderInterfac::boot() needed after
+    recent changes in Silex.
+
 v0.2.3 (2011-12-11)
   * There are no actual changes in the code of this release, aside from a bump
     in the required version of Predis in the composer.json file to target the
