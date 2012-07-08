@@ -1,16 +1,8 @@
 <?php
 
-define('__VENDOR__', __DIR__.'/../vendor');
-
-// See https://github.com/fabpot/Silex/pull/67
-require 'phar://'.__VENDOR__.'/Silex/silex.phar/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
 $app = new Silex\Application();
-
-/** bootstrap **/
-$app['autoloader']->registerNamespaces(array(
-    'Predis\Silex' => __VENDOR__.'/PredisServiceProvider/lib',
-));
 
 $app->register(new Predis\Silex\PredisServiceProvider(), array(
     'predis.clients' => array(
@@ -30,7 +22,6 @@ $app->register(new Predis\Silex\PredisServiceProvider(), array(
             ),
         ),
     ),
-    'predis.class_path' => __DIR__.'/../predis/lib',
 ));
 
 /** routes **/
