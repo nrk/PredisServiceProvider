@@ -25,7 +25,7 @@ $app->register(new Predis\Silex\PredisServiceProvider(), array(
 ));
 
 /** routes **/
-$app->get('/', function() use($app) {
+$app->get('/', function () use ($app) {
     $first = var_export($app['predis.first']->info(), true);
     $second = var_export($app['predis.second']->info(), true);
     $third = var_export($app['predis.third']->info(), true);

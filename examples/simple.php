@@ -13,7 +13,7 @@ $app->register(new Predis\Silex\PredisServiceProvider(), array(
 ));
 
 /** routes **/
-$app->get('/', function() use($app) {
+$app->get('/', function () use ($app) {
     return var_export($app['predis']->info(), true);
 });
 

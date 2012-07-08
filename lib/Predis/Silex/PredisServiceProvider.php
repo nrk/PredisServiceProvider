@@ -63,7 +63,7 @@ class PredisServiceProvider implements ServiceProviderInterface
                     throw new \InvalidArgumentException("The specified alias '$alias' is not valid.");
                 }
 
-                $app["$prefix.$alias"] = $app->share(function() use($app, $prefix, $args) {
+                $app["$prefix.$alias"] = $app->share(function () use ($app, $prefix, $args) {
                     $initializer = $app["$prefix.client_initializer"];
 
                     if (!isset($args['parameters'])) {
@@ -76,14 +76,13 @@ class PredisServiceProvider implements ServiceProviderInterface
                 });
 
                 if (is_array($args) && isset($args['default']) && $args['default'] == true) {
-                    $app[$prefix] = $app->share(function() use($app, $prefix, $alias) {
+                    $app[$prefix] = $app->share(function () use ($app, $prefix, $alias) {
                         return $app["$prefix.$alias"];
                     });
                 }
             }
-        }
-        else {
-            $app[$prefix] = $app->share(function() use($app, $prefix) {
+        } else {
+            $app[$prefix] = $app->share(function () use ($app, $prefix) {
                 $initializer = $app["$prefix.client_initializer"];
 
                 return $initializer($app);
@@ -98,15 +97,18 @@ class PredisServiceProvider implements ServiceProviderInterface
     {
         $prefix = $this->prefix;
 
-        $app["$prefix.client_initializer"] = $app->protect(function($arguments) use($app, $prefix) {
-            $extract = function($bag, $key) use ($app, $prefix) {
+        $app["$prefix.client_initializer"] = $app->protect(function ($arguments) use ($app, $prefix) {
+            $extract = function ($bag, $key) use ($app, $prefix) {
                 $default = "default_$key";
+
                 if ($bag instanceof Application) {
                     $key = "$prefix.$key";
                 }
+
                 if (!isset($bag[$key])) {
                     return $app["$prefix.$default"];
                 }
+
                 if (is_array($bag[$key])) {
                     return array_merge($app["$prefix.$default"], $bag[$key]);
                 }
@@ -117,8 +119,7 @@ class PredisServiceProvider implements ServiceProviderInterface
             if (is_string($arguments)) {
                 $parameters = $arguments;
                 $options = $app["$prefix.default_options"];
-            }
-            else {
+            } else {
                 $parameters = $extract($arguments, 'parameters');
                 $options = $extract($arguments, 'options');
             }
