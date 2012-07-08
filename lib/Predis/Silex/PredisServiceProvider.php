@@ -25,7 +25,7 @@ class PredisServiceProvider implements ServiceProviderInterface
 {
     protected static $reserved = array(
         'parameters', 'options', 'default_parameters', 'default_options',
-        'class_path', 'clients', 'client_initializer',
+        'clients', 'client_initializer',
     );
 
     protected $prefix;
@@ -48,10 +48,6 @@ class PredisServiceProvider implements ServiceProviderInterface
     public function boot(Application $app)
     {
         $prefix = $this->prefix;
-
-        if (isset($app["$prefix.class_path"])) {
-            $app['autoloader']->registerNamespace('Predis', $app["$prefix.class_path"]);
-        }
 
         if (!isset($app["$prefix.default_parameters"])) {
             $app["$prefix.default_parameters"] = array();
