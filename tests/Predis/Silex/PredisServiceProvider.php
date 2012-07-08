@@ -21,6 +21,7 @@ class PredisServiceProviderTest extends \PHPUnit_Framework_TestCase
     {
         $app = new Application();
         $app->register($provider ?: new PredisServiceProvider(), $arguments);
+        $app->boot();
 
         return $app;
     }

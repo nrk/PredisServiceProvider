@@ -47,13 +47,6 @@ class PredisServiceProvider implements ServiceProviderInterface
      */
     public function boot(Application $app)
     {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function register(Application $app)
-    {
         $prefix = $this->prefix;
 
         if (isset($app["$prefix.class_path"])) {
@@ -67,34 +60,6 @@ class PredisServiceProvider implements ServiceProviderInterface
         if (!isset($app["$prefix.default_options"])) {
             $app["$prefix.default_options"] = array();
         }
-
-        $app["$prefix.client_initializer"] = $app->protect(function($arguments) use($app, $prefix) {
-            $extract = function($bag, $key) use ($app, $prefix) {
-                $default = "default_$key";
-                if ($bag instanceof Application) {
-                    $key = "$prefix.$key";
-                }
-                if (!isset($bag[$key])) {
-                    return $app["$prefix.$default"];
-                }
-                if (is_array($bag[$key])) {
-                    return array_merge($app["$prefix.$default"], $bag[$key]);
-                }
-
-                return $bag[$key];
-            };
-
-            if (is_string($arguments)) {
-                $parameters = $arguments;
-                $options = $app["$prefix.default_options"];
-            }
-            else {
-                $parameters = $extract($arguments, 'parameters');
-                $options = $extract($arguments, 'options');
-            }
-
-            return new Client($parameters, $options);
-        });
 
         if (isset($app["$prefix.clients"])) {
             foreach ($app["$prefix.clients"] as $alias => $args) {
@@ -128,5 +93,41 @@ class PredisServiceProvider implements ServiceProviderInterface
                 return $initializer($app);
             });
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function register(Application $app)
+    {
+        $prefix = $this->prefix;
+
+        $app["$prefix.client_initializer"] = $app->protect(function($arguments) use($app, $prefix) {
+            $extract = function($bag, $key) use ($app, $prefix) {
+                $default = "default_$key";
+                if ($bag instanceof Application) {
+                    $key = "$prefix.$key";
+                }
+                if (!isset($bag[$key])) {
+                    return $app["$prefix.$default"];
+                }
+                if (is_array($bag[$key])) {
+                    return array_merge($app["$prefix.$default"], $bag[$key]);
+                }
+
+                return $bag[$key];
+            };
+
+            if (is_string($arguments)) {
+                $parameters = $arguments;
+                $options = $app["$prefix.default_options"];
+            }
+            else {
+                $parameters = $extract($arguments, 'parameters');
+                $options = $extract($arguments, 'options');
+            }
+
+            return new Client($parameters, $options);
+        });
     }
 }
