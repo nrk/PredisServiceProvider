@@ -1,5 +1,12 @@
-v0.2.4 (2011-06-01)
-  * Implemented an empty Silex\ServiceProviderInterfac::boot() needed after
+v0.x.x (2012-07-xx)
+  * Fixed service provider configuration after the recent addition of the
+    `boot()` method in Silex.
+
+  * Removed the `class_path` option, Silex removed its autoloader service and
+    now relies on Composer.
+
+v0.2.4 (2012-06-01)
+  * Implemented an empty Silex\ServiceProviderInterface::boot() needed after
     recent changes in Silex.
 
 v0.2.3 (2011-12-11)
