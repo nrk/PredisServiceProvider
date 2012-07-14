@@ -7,7 +7,7 @@ use __[Predis](http://github.com/nrk/predis)__ in their applications to connect 
 ## Getting started ##
 
 Using this service provider in your application is easy and requires the use of [Composer](http://packagist.org/about-composer)
-to download and set up all the needed dependencies by adding `"predis/service-provider": "0.2.*@stable"` to the
+to download and set up all the needed dependencies by adding `"predis/service-provider": "0.3.*@stable"` to the
 list of `require`d libraries in your `composer.json` file.
 
 After installing, and supposing that you already have the scheleton of your Silex application ready, you just need
