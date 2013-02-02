@@ -22,6 +22,16 @@ $app->register(new Predis\Silex\MultiPredisServiceProvider(), array(
             ),
         ),
     ),
+    'predis.default_parameters' => array(
+        'timeout' => 2.0,
+        'read_write_timeout' => 2.0,
+    ),
+    'predis.default_options' => array(
+        'connections' => array(
+            'tcp'  => 'Predis\Connection\PhpiredisConnection',
+            'unix' => 'Predis\Connection\PhpiredisConnection',
+        ),
+    ),
 ));
 
 /** routes **/
