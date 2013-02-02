@@ -45,6 +45,9 @@ class MultiPredisServiceProvider extends PredisServiceProvider
         });
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function register(Application $app)
     {
         $app["{$this->prefix}.clients"] = array();
