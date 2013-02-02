@@ -23,11 +23,6 @@ use Silex\ServiceProviderInterface;
  */
 class PredisServiceProvider implements ServiceProviderInterface
 {
-    protected static $reserved = array(
-        'parameters', 'options', 'default_parameters', 'default_options',
-        'clients', 'client_initializer',
-    );
-
     protected $prefix;
 
     /**
