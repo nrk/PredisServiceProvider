@@ -11,13 +11,13 @@
 
 namespace Predis\Silex;
 
+use InvalidArgumentException;
+use Predis\Client;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 
-use Predis\Client;
-
 /**
- * Exposes one or more client instances of Predis to Silex.
+ * Exposes a single instance of Predis\Client to Silex.
  *
  * @author Daniele Alessandri <suppakilla@gmail.com>
  */
@@ -31,12 +31,12 @@ class PredisServiceProvider implements ServiceProviderInterface
     protected $prefix;
 
     /**
-     * @param string $predix Prefix name used to register the service provider in Silex.
+     * @param string $prefix Prefix name used to register the service provider in Silex.
      */
     public function __construct($prefix = 'predis')
     {
         if (empty($prefix)) {
-            throw new \InvalidArgumentException('The specified prefix is not valid.');
+            throw new InvalidArgumentException('The specified prefix is not valid.');
         }
 
         $this->prefix = $prefix;
@@ -47,57 +47,20 @@ class PredisServiceProvider implements ServiceProviderInterface
      */
     public function boot(Application $app)
     {
-        $prefix = $this->prefix;
-
-        if (!isset($app["$prefix.default_parameters"])) {
-            $app["$prefix.default_parameters"] = array();
-        }
-
-        if (!isset($app["$prefix.default_options"])) {
-            $app["$prefix.default_options"] = array();
-        }
-
-        if (isset($app["$prefix.clients"])) {
-            foreach ($app["$prefix.clients"] as $alias => $args) {
-                if (in_array($alias, self::$reserved, true)) {
-                    throw new \InvalidArgumentException("The specified alias '$alias' is not valid.");
-                }
-
-                $app["$prefix.$alias"] = $app->share(function () use ($app, $prefix, $args) {
-                    $initializer = $app["$prefix.client_initializer"];
-
-                    if (!isset($args['parameters'])) {
-                        if (!isset($args['options']) && !isset($args['default'])) {
-                            $args = array('parameters' => $args);
-                        }
-                    }
-
-                    return $initializer($args);
-                });
-
-                if (is_array($args) && isset($args['default']) && $args['default'] == true) {
-                    $app[$prefix] = $app->share(function () use ($app, $prefix, $alias) {
-                        return $app["$prefix.$alias"];
-                    });
-                }
-            }
-        } else {
-            $app[$prefix] = $app->share(function () use ($app, $prefix) {
-                $initializer = $app["$prefix.client_initializer"];
-
-                return $initializer($app);
-            });
-        }
+        // NOOP
     }
 
     /**
-     * {@inheritdoc}
+     * Returns the anonymous function that will be used by the service provider
+     * to lazily-initialize new instances of Predis\Client.
+     *
+     * @param Application $app
+     * @param string $prefix
+     * @return \Closure
      */
-    public function register(Application $app)
+    protected function getClientInitializer(Application $app, $prefix)
     {
-        $prefix = $this->prefix;
-
-        $app["$prefix.client_initializer"] = $app->protect(function ($arguments) use ($app, $prefix) {
+        return $app->protect(function ($arguments) use ($app, $prefix) {
             $extract = function ($bag, $key) use ($app, $prefix) {
                 $default = "default_$key";
 
@@ -126,5 +89,35 @@ class PredisServiceProvider implements ServiceProviderInterface
 
             return new Client($parameters, $options);
         });
+    }
+
+    /**
+     * Returns the anonymous function that will be used by the service provider
+     * to handle accesses to the root prefix.
+     *
+     * @param Application $app
+     * @param string $prefix
+     * @return mixed
+     */
+    protected function getProviderHandler(Application $app, $prefix)
+    {
+        return $app->share(function () use ($app, $prefix) {
+            $initializer = $app["$prefix.client_initializer"];
+
+            return $initializer($app);
+        });
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function register(Application $app)
+    {
+        $prefix = $this->prefix;
+
+        $app["$prefix.default_parameters"] = array();
+        $app["$prefix.default_options"] = array();
+        $app["$prefix.client_initializer"] = $this->getClientInitializer($app, $prefix);
+        $app["$prefix"] = $this->getProviderHandler($app, $prefix);
     }
 }

@@ -1,37 +1,32 @@
 # PredisServiceProvider #
 
-This service provider for the __[Silex](http://silex-project.org)__ microframework enables developers to easily
-use __[Predis](http://github.com/nrk/predis)__ in their applications to connect to __[Redis](http://redis.io)__.
+This is a service provider for [Silex](http://silex-project.org) that enables developers to easily connect
+to [Redis](http://redis.io) by using [Predis](http://github.com/nrk/predis).
 
 
 ## Getting started ##
 
-Using this service provider in your application is easy and requires the use of [Composer](http://packagist.org/about-composer)
-to download and set up all the needed dependencies by adding `"predis/service-provider": "0.3.*@stable"` to the
-list of `require`d libraries in your `composer.json` file.
+Supposing that you have already set up the required dependencies using [Composer](http://packagist.org/about-composer)
+and the scheleton of your Silex application is ready, now you simply need to register the service provider
+specifying the parameters and options needed to access Redis:
 
-After installing, and supposing that you already have the scheleton of your Silex application ready, you just need
-to register the service provider with the parameters needed to access the Redis server instance and configure the
-underlying Predis client:
-
-``` php
-<?php
-/* ... */
+```php
 $app->register(new Predis\Silex\PredisServiceProvider(), array(
-    'predis.parameters' => 'tcp://127.0.0.1:6379/',
+    'predis.parameters' => 'tcp://127.0.0.1:6379',
     'predis.options'    => array('profile' => '2.2'),
 ));
-/* ... */
 ```
 
-Both `predis.parameters` and `predis.options` are actually optional and accept the same values of the constructor
-method of `Predis\Client`. It is also possible to define multiple clients identified by aliases with their own
-parameters and options using `predis.clients`. Each client instance will be initialized lazily upon first access:
+This will register a single `Predis\Client` instance accessible by your application using `$app['predis']`.
+Both `predis.parameters` and `predis.options` are optional and accept the same values of the constructor
+of `Predis\Client`.
 
-``` php
-<?php
-/* ... */
-$app->register(new Predis\Silex\PredisServiceProvider(), array(
+Certain applications might need more than one client to reach different servers or configured with different
+options such as key prefixing or server profile. In such cases you must use `Predis\Silex\MultiPredisServiceProvider`
+and provide a list of clients with their own parameters and options using `predis.clients`:
+
+```php
+$app->register(new Predis\Silex\MultiPredisServiceProvider(), array(
     'predis.clients' => array(
         'first' => 'tcp://127.0.0.1:6379',
         'second' => array(
@@ -47,29 +42,18 @@ $app->register(new Predis\Silex\PredisServiceProvider(), array(
         ),
     ),
 ));
-/* ... */
 ```
 
-If you are looking for simple but complete examples of how to use this extension you can have a look at the
-_examples_ directory included in the repository or the test suite in the _tests_ directory.
+Client instances will be exposed to your application using `$app['predis'][$alias]` where `$alias` is the key
+used to populate the items of `predis.clients`. Each client instance will be initialized lazily upon first access.
 
-
-## Testing ##
-
-In order to be able to run the test suite of the provider you must run `php composer.phar install`  in the root
-of the repository to install the needed dependencies.
-
-```bash
-  $ wget http://getcomposer.org/composer.phar
-  $ php composer.phar install
-  $ phpunit
-```
+You can find more details on how to use this provider in the `examples` directory or the test suite,
 
 
 ## Dependencies ##
 
 - PHP >= 5.3.2
-- Predis >= 0.7.0
+- Predis >= 0.8.0
 
 
 ## Project links ##
@@ -89,4 +73,4 @@ of the repository to install the needed dependencies.
 
 ## License ##
 
-The code for PredisServiceProvider is distributed under the terms of the __MIT license__ (see LICENSE).
+The code for PredisServiceProvider is distributed under the terms of the [MIT license](LICENSE).
