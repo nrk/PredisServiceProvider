@@ -33,7 +33,9 @@ class MultiPredisServiceProvider extends PredisServiceProvider
                 $clients[$alias] = $clients->share(function () use ($app, $prefix, $args) {
                     $initializer = $app["$prefix.client_initializer"];
 
-                    if (!isset($args['parameters']) && !isset($args['options'])) {
+                    if (is_string($args)) {
+                        $args = array('parameters' => $args);
+                    } else if (!isset($args['parameters']) && !isset($args['options'])) {
                         $args = array('parameters' => $args);
                     }
 

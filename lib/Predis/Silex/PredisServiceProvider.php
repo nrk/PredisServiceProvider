@@ -60,7 +60,7 @@ class PredisServiceProvider implements ServiceProviderInterface
      */
     protected function getClientInitializer(Application $app, $prefix)
     {
-        return $app->protect(function ($arguments) use ($app, $prefix) {
+        return $app->protect(function ($args) use ($app, $prefix) {
             $extract = function ($bag, $key) use ($app, $prefix) {
                 $default = "default_$key";
 
@@ -79,13 +79,12 @@ class PredisServiceProvider implements ServiceProviderInterface
                 return $bag[$key];
             };
 
-            if (is_string($arguments)) {
-                $parameters = $arguments;
-                $options = $app["$prefix.default_options"];
-            } else {
-                $parameters = $extract($arguments, 'parameters');
-                $options = $extract($arguments, 'options');
+            if (isset($args['parameters']) && is_string($args['parameters'])) {
+                $args['parameters'] = $app["$prefix.uri_parser"]($args['parameters']);
             }
+
+            $parameters = $extract($args, 'parameters');
+            $options = $extract($args, 'options');
 
             return new Client($parameters, $options);
         });
@@ -117,6 +116,30 @@ class PredisServiceProvider implements ServiceProviderInterface
 
         $app["$prefix.default_parameters"] = array();
         $app["$prefix.default_options"] = array();
+
+        // NOTE: too bad we are forced to copy Predis\Connection\ConnectionParameters::parseURI()...
+        $app["$prefix.uri_parser"] = $app->protect(function ($uri) {
+            if (stripos($uri, 'unix') === 0) {
+                // Hack to support URIs for UNIX sockets with minimal effort.
+                $uri = str_ireplace('unix:///', 'unix://localhost/', $uri);
+            }
+
+            if (($parsed = @parse_url($uri)) === false || !isset($parsed['host'])) {
+                throw new InvalidArgumentException("Invalid URI string: $uri");
+            }
+
+            if (isset($parsed['query'])) {
+                foreach (explode('&', $parsed['query']) as $kv) {
+                    @list($k, $v) = explode('=', $kv);
+                    $parsed[$k] = $v;
+                }
+
+                unset($parsed['query']);
+            }
+
+            return $parsed;
+        });
+
         $app["$prefix.client_initializer"] = $this->getClientInitializer($app, $prefix);
         $app["$prefix"] = $this->getProviderHandler($app, $prefix);
     }
