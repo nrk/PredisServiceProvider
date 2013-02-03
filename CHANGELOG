@@ -1,4 +1,4 @@
-v0.4.0 (2013-02-xx)
+v0.4.0 (2013-02-03)
   * The service provider now requires Predis v0.8.
 
   * `Predis\Silex\PredisServiceProvider` is now used only for single-client
