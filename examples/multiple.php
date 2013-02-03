@@ -22,6 +22,7 @@ $app->register(new Predis\Silex\MultiPredisServiceProvider(), array(
             ),
         ),
     ),
+    'predis.default_client' => 'first',
     'predis.default_parameters' => array(
         'timeout' => 2.0,
         'read_write_timeout' => 2.0,
@@ -37,11 +38,13 @@ $app->register(new Predis\Silex\MultiPredisServiceProvider(), array(
 /** routes **/
 
 $app->get('/', function () use ($app) {
-    $first = var_export($app['predis']['first']->info(), true);
-    $second = var_export($app['predis']['second']->info(), true);
-    $third = var_export($app['predis']['third']->info(), true);
+    $default = var_export($app['predis']->info('server'), true);
 
-    return "$first<br/>\n$second<br/>\n$third<br/>\n";
+    $first = var_export($app['predis']['first']->info('server'), true);
+    $second = var_export($app['predis']['second']->info('server'), true);
+    $third = var_export($app['predis']['third']->info('server'), true);
+
+    return "$default<br/>\n$first<br/>\n$second<br/>\n$third<br/>\n";
 });
 
 /** run application **/
