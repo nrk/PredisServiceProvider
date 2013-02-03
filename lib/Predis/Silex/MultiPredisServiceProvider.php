@@ -27,7 +27,7 @@ class MultiPredisServiceProvider extends PredisServiceProvider
     protected function getProviderHandler(Application $app, $prefix)
     {
         return $app->share(function () use ($app, $prefix) {
-            $clients = new Pimple();
+            $clients = $app["{$prefix}.clients_container"]();
 
             foreach ($app["$prefix.clients"] as $alias => $args) {
                 $clients[$alias] = $clients->share(function () use ($app, $prefix, $args) {
@@ -53,6 +53,9 @@ class MultiPredisServiceProvider extends PredisServiceProvider
     public function register(Application $app)
     {
         $app["{$this->prefix}.clients"] = array();
+        $app["{$this->prefix}.clients_container"] = $app->protect(function () {
+            return new Pimple();
+        });
 
         parent::register($app);
     }
