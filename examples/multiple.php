@@ -4,7 +4,7 @@ require __DIR__.'/../vendor/autoload.php';
 
 $app = new Silex\Application();
 
-$app->register(new Predis\Silex\PredisServiceProvider(), array(
+$app->register(new Predis\Silex\MultiPredisServiceProvider(), array(
     'predis.clients' => array(
         'first' => 'tcp://127.0.0.1:6379',
         'second' => array(
@@ -22,15 +22,29 @@ $app->register(new Predis\Silex\PredisServiceProvider(), array(
             ),
         ),
     ),
+    'predis.default_client' => 'first',
+    'predis.default_parameters' => array(
+        'timeout' => 2.0,
+        'read_write_timeout' => 2.0,
+    ),
+    'predis.default_options' => array(
+        'connections' => array(
+            'tcp'  => 'Predis\Connection\PhpiredisConnection',
+            'unix' => 'Predis\Connection\PhpiredisConnection',
+        ),
+    ),
 ));
 
 /** routes **/
-$app->get('/', function () use ($app) {
-    $first = var_export($app['predis.first']->info(), true);
-    $second = var_export($app['predis.second']->info(), true);
-    $third = var_export($app['predis.third']->info(), true);
 
-    return "$first<br/>\n$second<br/>\n$third<br/>\n";
+$app->get('/', function () use ($app) {
+    $default = var_export($app['predis']->info('server'), true);
+
+    $first = var_export($app['predis']['first']->info('server'), true);
+    $second = var_export($app['predis']['second']->info('server'), true);
+    $third = var_export($app['predis']['third']->info('server'), true);
+
+    return "$default<br/>\n$first<br/>\n$second<br/>\n$third<br/>\n";
 });
 
 /** run application **/

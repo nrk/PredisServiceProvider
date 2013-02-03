@@ -1,3 +1,15 @@
+v0.4.0 (2013-02-xx)
+  * The service provider now requires Predis v0.8.
+
+  * `Predis\Silex\PredisServiceProvider` is now used only for single-client
+    configurations while the new `Predis\Silex\MultiPredisServiceProvider`
+    can be used to configure multiple clients. This is a breaking change from
+    previous versions in which both configurations were handled by the same
+    provider class.
+
+  * Due to the nature of the above mentioned change, it is no more possible
+    to define a default client when using a multiple-clients configuration.
+
 v0.3.0 (2012-07-14)
   * Fixed service provider configuration after the recent addition of the
     `boot()` method in Silex.
