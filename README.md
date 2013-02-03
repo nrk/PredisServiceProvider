@@ -45,7 +45,9 @@ $app->register(new Predis\Silex\MultiPredisServiceProvider(), array(
 ```
 
 Client instances will be exposed to your application using `$app['predis'][$alias]` where `$alias` is the key
-used to populate the items of `predis.clients`. Each client instance will be initialized lazily upon first access.
+used to populate the items of `predis.clients`. You can optionally define a default client by specifying its
+alias in `predis.default_client` to make it accessible by invoking methods of `Predis\Client` directly  against
+`$app['predis']`. Each client instance will be initialized lazily upon first access.
 
 You can find more details on how to use this provider in the `examples` directory or the test suite,
 
