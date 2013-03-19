@@ -13,6 +13,7 @@ namespace Predis\Silex;
 
 use InvalidArgumentException;
 use Predis\Client;
+use Predis\Connection\ConnectionParameters;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 
@@ -112,27 +113,8 @@ class PredisServiceProvider implements ServiceProviderInterface
         $app["$prefix.default_parameters"] = array();
         $app["$prefix.default_options"] = array();
 
-        // NOTE: too bad we are forced to copy Predis\Connection\ConnectionParameters::parseURI()...
         $app["$prefix.uri_parser"] = $app->protect(function ($uri) {
-            if (stripos($uri, 'unix') === 0) {
-                // Hack to support URIs for UNIX sockets with minimal effort.
-                $uri = str_ireplace('unix:///', 'unix://localhost/', $uri);
-            }
-
-            if (($parsed = @parse_url($uri)) === false || !isset($parsed['host'])) {
-                throw new InvalidArgumentException("Invalid URI string: $uri");
-            }
-
-            if (isset($parsed['query'])) {
-                foreach (explode('&', $parsed['query']) as $kv) {
-                    @list($k, $v) = explode('=', $kv);
-                    $parsed[$k] = $v;
-                }
-
-                unset($parsed['query']);
-            }
-
-            return $parsed;
+            return ConnectionParameters::parseURI($uri);
         });
 
         $app["$prefix.client_constructor"] = $app->protect(function ($parameters, $options) {
