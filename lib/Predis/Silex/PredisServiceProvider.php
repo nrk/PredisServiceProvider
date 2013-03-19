@@ -81,7 +81,7 @@ class PredisServiceProvider implements ServiceProviderInterface
             $parameters = $extract($args, 'parameters');
             $options = $extract($args, 'options');
 
-            return new Client($parameters, $options);
+            return $app["$prefix.client_constructor"]($parameters, $options);
         });
     }
 
@@ -133,6 +133,10 @@ class PredisServiceProvider implements ServiceProviderInterface
             }
 
             return $parsed;
+        });
+
+        $app["$prefix.client_constructor"] = $app->protect(function ($parameters, $options) {
+            return new Client($parameters, $options);
         });
 
         $app["$prefix.client_initializer"] = $this->getClientInitializer($app, $prefix);
