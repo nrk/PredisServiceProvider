@@ -1,3 +1,6 @@
+v0.4.2 (2013-10-18)
+  * Fix Silex dependency to allow stable and dev versions.
+
 v0.4.1 (2013-03-19)
   * Added `predis.client_constructor` to easily override the actual instance
     of `Predis\ClientInterface` returned by the provider when creating a new
