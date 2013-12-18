@@ -7,7 +7,7 @@ to [Redis](http://redis.io) by using [Predis](http://github.com/nrk/predis).
 ## Getting started ##
 
 Supposing that you have already set up the required dependencies using [Composer](http://packagist.org/about-composer)
-and the scheleton of your Silex application is ready, now you simply need to register the service provider
+and the skeleton of your Silex application is ready, now you simply need to register the service provider
 specifying the parameters and options needed to access Redis:
 
 ```php
