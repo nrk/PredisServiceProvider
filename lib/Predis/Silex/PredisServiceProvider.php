@@ -32,7 +32,7 @@ class PredisServiceProvider implements ServiceProviderInterface
     public function __construct($prefix = 'predis')
     {
         if (empty($prefix)) {
-            throw new InvalidArgumentException('The specified prefix is not valid.');
+            throw new \InvalidArgumentException('The specified prefix is not valid.');
         }
 
         $this->prefix = $prefix;
