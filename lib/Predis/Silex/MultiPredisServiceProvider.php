@@ -11,7 +11,6 @@
 
 namespace Predis\Silex;
 
-use Pimple;
 use Silex\Application;
 use Predis\Silex\Container\MultiClientsContainer;
 
