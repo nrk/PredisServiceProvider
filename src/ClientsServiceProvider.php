@@ -19,7 +19,7 @@ use Predis\Silex\Container\ClientsContainer;
  *
  * @author Daniele Alessandri <suppakilla@gmail.com>
  */
-class MultiPredisServiceProvider extends PredisServiceProvider
+class ClientsServiceProvider extends ClientServiceProvider
 {
     /**
      * {@inheritdoc}

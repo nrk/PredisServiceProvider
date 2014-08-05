@@ -23,7 +23,7 @@ abstract class ProviderTestCase extends StandardTestCase
 {
     abstract protected function getProviderInstance($prefix = 'predis');
 
-    protected function register(Array $arguments = array(), PredisServiceProvider $provider = null)
+    protected function register(Array $arguments = array(), ClientServiceProvider $provider = null)
     {
         $app = new Application();
 

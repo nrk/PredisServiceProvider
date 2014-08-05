@@ -15,11 +15,11 @@ use Silex\Application;
 use Predis\Client;
 use Predis\Profile\ServerProfile;
 
-class PredisServiceProviderTest extends ProviderTestCase
+class ClientServiceProviderTest extends ProviderTestCase
 {
     protected function getProviderInstance($prefix = 'predis')
     {
-        return new PredisServiceProvider($prefix);
+        return new ClientServiceProvider($prefix);
     }
 
     protected function checkRegisteredProvider(Application $app, $prefix)

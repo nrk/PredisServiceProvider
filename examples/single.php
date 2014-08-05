@@ -4,7 +4,7 @@ require __DIR__.'/../vendor/autoload.php';
 
 $app = new Silex\Application();
 
-$app->register(new Predis\Silex\PredisServiceProvider(), array(
+$app->register(new Predis\Silex\ClientServiceProvider(), array(
     'predis.parameters' => 'tcp://127.0.0.1:6379/',
     'predis.options'    => array(
         'profile' => '2.2',

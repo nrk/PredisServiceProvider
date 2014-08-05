@@ -14,11 +14,11 @@ namespace Predis\Silex;
 use Silex\Application;
 use Predis\Profile\ServerProfile;
 
-class MultiPredisServiceProviderTest extends ProviderTestCase
+class ClientsServiceProviderTest extends ProviderTestCase
 {
     protected function getProviderInstance($prefix = 'predis')
     {
-        return new MultiPredisServiceProvider($prefix);
+        return new ClientsServiceProvider($prefix);
     }
 
     protected function checkRegisteredProvider(Application $app, $prefix)

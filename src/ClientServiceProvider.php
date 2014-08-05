@@ -22,7 +22,7 @@ use Silex\ServiceProviderInterface;
  *
  * @author Daniele Alessandri <suppakilla@gmail.com>
  */
-class PredisServiceProvider implements ServiceProviderInterface
+class ClientServiceProvider implements ServiceProviderInterface
 {
     protected $prefix;
 

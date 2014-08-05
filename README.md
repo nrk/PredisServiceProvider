@@ -1,4 +1,4 @@
-# PredisServiceProvider #
+# Predis ServiceProvider #
 
 This service provider for [Silex](http://silex-project.org/) allows developers to easily configure
 and expose [Predis](http://github.com/nrk/predis) enabling them to use [Redis](http://redis.io) in
@@ -7,11 +7,11 @@ their applications.
 
 ### Getting started ###
 
-Supposing that the skeleton of your Silex application is ready, now you simply need to register this
-service provider by specifying the parameters and options needed to access Redis:
+Supposing that the skeleton of your application is ready, you simply need to register this service
+provider by specifying the parameters and options needed to access Redis:
 
 ```php
-$app->register(new Predis\Silex\PredisServiceProvider(), [
+$app->register(new Predis\Silex\ClientServiceProvider(), [
     'predis.parameters' => 'tcp://127.0.0.1:6379',
     'predis.options'    => [
         'prefix'  => 'silex:',
@@ -25,11 +25,11 @@ using `$app['predis']`. Both `predis.parameters` and `predis.options` are option
 the same values accepted by the constructor of `Predis\Client` (see the documentation of Predis).
 
 Certain applications might need more than one client to reach different servers or configured with
-different options. In such cases you must use `Predis\Silex\MultiPredisServiceProvider` and provide
-a list of clients with their own parameters and options using `predis.clients`:
+different options. In such cases you must use `Predis\Silex\ClientsServiceProvider` providing a list
+of clients with their own parameters and options using `predis.clients`:
 
 ```php
-$app->register(new Predis\Silex\MultiPredisServiceProvider(), [
+$app->register(new Predis\Silex\ClientsServiceProvider(), [
     'predis.clients' => [
         'first' => 'tcp://127.0.0.1:6379',
         'second' => [
@@ -81,4 +81,4 @@ consistent while working on the project.
 
 ### License ###
 
-The code for PredisServiceProvider is distributed under the terms of the [MIT license](LICENSE).
+The code for Predis ServiceProvider is distributed under the terms of the [MIT license](LICENSE).

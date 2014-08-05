@@ -4,7 +4,7 @@ require __DIR__.'/../vendor/autoload.php';
 
 $app = new Silex\Application();
 
-$app->register(new Predis\Silex\MultiPredisServiceProvider(), array(
+$app->register(new Predis\Silex\ClientsServiceProvider(), array(
     'predis.clients' => array(
         'first' => 'tcp://127.0.0.1:6379',
         'second' => array(
