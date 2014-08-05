@@ -21,7 +21,7 @@ use Silex\Application;
  *
  * @author Daniele Alessandri <suppakilla@gmail.com>
  */
-class MultiClientsContainer extends Pimple
+class ClientsContainer extends Pimple
 {
     protected $application;
     protected $prefix;

@@ -12,7 +12,7 @@
 namespace Predis\Silex;
 
 use Silex\Application;
-use Predis\Silex\Container\MultiClientsContainer;
+use Predis\Silex\Container\ClientsContainer;
 
 /**
  * Exposes multiple instances of Predis\Client to Silex.
@@ -55,7 +55,7 @@ class MultiPredisServiceProvider extends PredisServiceProvider
         $app["{$this->prefix}.clients"] = array();
 
         $app["{$this->prefix}.clients_container"] = $app->protect(function ($prefix) use ($app) {
-            return new MultiClientsContainer($app, $prefix);
+            return new ClientsContainer($app, $prefix);
         });
 
         parent::register($app);
