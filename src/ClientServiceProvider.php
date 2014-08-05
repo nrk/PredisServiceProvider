@@ -13,7 +13,7 @@ namespace Predis\Silex;
 
 use InvalidArgumentException;
 use Predis\Client;
-use Predis\Connection\ConnectionParameters;
+use Predis\Connection\Parameters;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 
@@ -116,7 +116,7 @@ class ClientServiceProvider implements ServiceProviderInterface
         $app["$prefix.default_options"] = array();
 
         $app["$prefix.uri_parser"] = $app->protect(function ($uri) {
-            return ConnectionParameters::parseURI($uri);
+            return Parameters::parse($uri);
         });
 
         $app["$prefix.client_constructor"] = $app->protect(function ($parameters, $options) {

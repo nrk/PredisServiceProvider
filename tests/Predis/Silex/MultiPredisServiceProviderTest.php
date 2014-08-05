@@ -12,7 +12,7 @@
 namespace Predis\Silex;
 
 use Silex\Application;
-use Predis\Profile\ServerProfile;
+use Predis\Profile\Factory as ProfileFactory;
 
 class ClientsServiceProviderTest extends ProviderTestCase
 {
@@ -48,16 +48,16 @@ class ClientsServiceProviderTest extends ProviderTestCase
         $this->checkParameters($app['predis'], 3, $params);
 
         list(, $options) = $this->getParametersAndOptions($app['predis'][0]);
-        $this->assertEquals(ServerProfile::getDefault(), $options->profile);
+        $this->assertEquals(ProfileFactory::getDefault(), $options->profile);
 
         list(, $options) = $this->getParametersAndOptions($app['predis'][1]);
-        $this->assertEquals(ServerProfile::getDefault(), $options->profile);
+        $this->assertEquals(ProfileFactory::getDefault(), $options->profile);
 
         list(, $options) = $this->getParametersAndOptions($app['predis'][2]);
-        $this->assertEquals(ServerProfile::getDefault(), $options->profile);
+        $this->assertEquals(ProfileFactory::getDefault(), $options->profile);
 
         list(, $options) = $this->getParametersAndOptions($app['predis'][3]);
-        $this->assertEquals(ServerProfile::getDevelopment(), $options->profile);
+        $this->assertEquals(ProfileFactory::getDevelopment(), $options->profile);
     }
 
     public function testClientsAliased()
@@ -79,16 +79,16 @@ class ClientsServiceProviderTest extends ProviderTestCase
         $this->checkParameters($app['predis'], '4th', $params);
 
         list(, $options) = $this->getParametersAndOptions($app['predis']['1st']);
-        $this->assertEquals(ServerProfile::getDefault(), $options->profile);
+        $this->assertEquals(ProfileFactory::getDefault(), $options->profile);
 
         list(, $options) = $this->getParametersAndOptions($app['predis']['2nd']);
-        $this->assertEquals(ServerProfile::getDefault(), $options->profile);
+        $this->assertEquals(ProfileFactory::getDefault(), $options->profile);
 
         list(, $options) = $this->getParametersAndOptions($app['predis']['3rd']);
-        $this->assertEquals(ServerProfile::getDefault(), $options->profile);
+        $this->assertEquals(ProfileFactory::getDefault(), $options->profile);
 
         list(, $options) = $this->getParametersAndOptions($app['predis']['4th']);
-        $this->assertEquals(ServerProfile::getDevelopment(), $options->profile);
+        $this->assertEquals(ProfileFactory::getDevelopment(), $options->profile);
     }
 
     public function testClientsCluster()
@@ -110,8 +110,8 @@ class ClientsServiceProviderTest extends ProviderTestCase
             ),
         ));
 
-        $this->assertInstanceOf('Predis\Connection\PredisCluster', $app['predis']['1st']->getConnection());
-        $this->assertInstanceOf('Predis\Connection\PredisCluster', $app['predis']['2nd']->getConnection());
-        $this->assertInstanceOf('Predis\Connection\PredisCluster', $app['predis']['3rd']->getConnection());
+        $this->assertInstanceOf('Predis\Connection\Aggregate\PredisCluster', $app['predis']['1st']->getConnection());
+        $this->assertInstanceOf('Predis\Connection\Aggregate\PredisCluster', $app['predis']['2nd']->getConnection());
+        $this->assertInstanceOf('Predis\Connection\Aggregate\PredisCluster', $app['predis']['3rd']->getConnection());
     }
 }

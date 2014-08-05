@@ -1,6 +1,8 @@
 v1.0.0 (2014-08-xx)
   * Switched to PSR-4 for autoloading.
 
+  * Bumped required version of Predis to ~1.0.
+
   * Service provider classes have been renamed.
 
 v0.4.2 (2013-10-18)

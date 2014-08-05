@@ -13,7 +13,7 @@ namespace Predis\Silex;
 
 use Silex\Application;
 use Predis\Client;
-use Predis\Profile\ServerProfile;
+use Predis\Profile\Factory as ProfileFactory;
 
 class ClientServiceProviderTest extends ProviderTestCase
 {
@@ -55,7 +55,7 @@ class ClientServiceProviderTest extends ProviderTestCase
         $this->assertEquals('127.0.0.1', $parameters->host);
         $this->assertEquals(6379, $parameters->port);
 
-        $this->assertEquals(ServerProfile::getDefault(), $options->profile);
+        $this->assertEquals(ProfileFactory::getDefault(), $options->profile);
         $this->assertNull($options->prefix);
     }
 
@@ -101,7 +101,7 @@ class ClientServiceProviderTest extends ProviderTestCase
 
         list(, $options) = $this->getParametersAndOptions($app['predis']);
 
-        $profile = ServerProfile::get($profile);
+        $profile = ProfileFactory::get($profile);
         $profile->setProcessor($options->prefix);
 
         $this->assertEquals($prefix, $options->prefix->getPrefix());
@@ -118,6 +118,6 @@ class ClientServiceProviderTest extends ProviderTestCase
             ),
         ));
 
-        $this->assertInstanceOf('Predis\Connection\PredisCluster', $app['predis']->getConnection());
+        $this->assertInstanceOf('Predis\Connection\Aggregate\PredisCluster', $app['predis']->getConnection());
     }
 }

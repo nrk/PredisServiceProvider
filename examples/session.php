@@ -21,8 +21,9 @@ $app->register(new Silex\Provider\SessionServiceProvider(), array(
         $client = $app['predis']['session'];
         $options = array('gc_maxlifetime' => 300);
 
-        // NOTE: Predis\Session\SessionHandler was added in Predis v0.8.2.
-        return new Predis\Session\SessionHandler($client, $options);
+        $handler = new Predis\Session\Handler($client, $options);
+
+        return $handler;
     })
 ));
 
