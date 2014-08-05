@@ -21,7 +21,7 @@ use Predis\Client;
  */
 abstract class ProviderTestCase extends StandardTestCase
 {
-    protected abstract function getProviderInstance($prefix = 'predis');
+    abstract protected function getProviderInstance($prefix = 'predis');
 
     protected function register(Array $arguments = array(), PredisServiceProvider $provider = null)
     {

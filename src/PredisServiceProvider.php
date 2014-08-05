@@ -51,7 +51,8 @@ class PredisServiceProvider implements ServiceProviderInterface
      * to lazily-initialize new instances of Predis\Client.
      *
      * @param Application $app
-     * @param string $prefix
+     * @param string      $prefix
+     *
      * @return \Closure
      */
     protected function getClientInitializer(Application $app, $prefix)
@@ -91,7 +92,8 @@ class PredisServiceProvider implements ServiceProviderInterface
      * to handle accesses to the root prefix.
      *
      * @param Application $app
-     * @param string $prefix
+     * @param string      $prefix
+     *
      * @return mixed
      */
     protected function getProviderHandler(Application $app, $prefix)

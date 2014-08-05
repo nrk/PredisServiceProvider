@@ -12,7 +12,6 @@
 namespace Predis\Silex;
 
 use Silex\Application;
-use Predis\Client;
 use Predis\Profile\ServerProfile;
 
 class MultiPredisServiceProviderTest extends ProviderTestCase

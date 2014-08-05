@@ -35,7 +35,7 @@ class MultiPredisServiceProvider extends PredisServiceProvider
 
                     if (is_string($args)) {
                         $args = array('parameters' => $args);
-                    } else if (!isset($args['parameters']) && !isset($args['options'])) {
+                    } elseif (!isset($args['parameters']) && !isset($args['options'])) {
                         $args = array('parameters' => $args);
                     }
 
