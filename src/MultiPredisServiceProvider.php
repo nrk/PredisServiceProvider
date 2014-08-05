@@ -15,7 +15,7 @@ use Silex\Application;
 use Predis\Silex\Container\MultiClientsContainer;
 
 /**
- * Exposes multiple and separate instances of Predis\Client to Silex.
+ * Exposes multiple instances of Predis\Client to Silex.
  *
  * @author Daniele Alessandri <suppakilla@gmail.com>
  */

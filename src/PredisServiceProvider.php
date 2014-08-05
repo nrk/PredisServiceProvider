@@ -47,8 +47,8 @@ class PredisServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * Returns the anonymous function that will be used by the service provider
-     * to lazily-initialize new instances of Predis\Client.
+     * Returns an anonymous function used by the service provider initialize
+     * lazily new instances of Predis\Client.
      *
      * @param Application $app
      * @param string      $prefix
@@ -88,8 +88,8 @@ class PredisServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * Returns the anonymous function that will be used by the service provider
-     * to handle accesses to the root prefix.
+     * Returns an anonymous function used by the service provider to handle
+     * accesses to the root prefix.
      *
      * @param Application $app
      * @param string      $prefix

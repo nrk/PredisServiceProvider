@@ -16,8 +16,8 @@ use Pimple;
 use Silex\Application;
 
 /**
- * Specialized Pimple container tha makes it possible to define
- * a default client responding to `$app['predis']`.
+ * Specialized Pimple container that supports the definition of a default client
+ * responding to `$app['predis']`.
  *
  * @author Daniele Alessandri <suppakilla@gmail.com>
  */
