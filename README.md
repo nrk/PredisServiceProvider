@@ -4,7 +4,7 @@ This is a service provider for [Silex](http://silex-project.org) that enables de
 to [Redis](http://redis.io) by using [Predis](http://github.com/nrk/predis).
 
 
-## Getting started ##
+### Getting started ###
 
 Supposing that you have already set up the required dependencies using [Composer](http://packagist.org/about-composer)
 and the skeleton of your Silex application is ready, now you simply need to register the service provider
@@ -51,28 +51,30 @@ alias in `predis.default_client` to make it accessible by invoking methods of `P
 
 You can find more details on how to use this provider in the `examples` directory or the test suite,
 
+### Reporting bugs and contributing code ###
 
-## Dependencies ##
+Contributions are highly appreciated either in the form of pull requests for new features, bug fixes
+or just bug reports. We only ask you to adhere to a [basic set of rules](CONTRIBUTING.md) before
+submitting your changes or filing bugs on the issue tracker to make it easier for everyone to stay
+consistent while working on the project.
 
-- PHP >= 5.3.2
-- Predis >= 0.8.0
 
+### Project links ###
 
-## Project links ##
 - [Source code](http://github.com/nrk/PredisServiceProvider)
 - [Issue tracker](http://github.com/nrk/PredisServiceProvider/issues)
 
 
-## Author ##
+### Author ###
 
 - [Daniele Alessandri](mailto:suppakilla@gmail.com) ([twitter](http://twitter.com/JoL1hAHN))
 
 
-## Contributors ##
+### Contributors ###
 
 - Jérôme Macias ([github](http://github.com/jeromemacias))
 
 
-## License ##
+### License ###
 
 The code for PredisServiceProvider is distributed under the terms of the [MIT license](LICENSE).
