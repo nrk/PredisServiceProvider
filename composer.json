@@ -13,7 +13,7 @@
         }
     ],
     "autoload": {
-        "psr-0": {"Predis\\Silex\\": "lib/"}
+        "psr-4": {"Predis\\Silex\\": "src/"}
     },
     "require": {
         "php": ">=5.3.2",
