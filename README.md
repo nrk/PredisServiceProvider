@@ -57,6 +57,11 @@ by specifying its alias in `predis.default_client` making it accessible simply b
 of `Predis\Client` directly against `$app['predis']`. Client instances are lazily initialized upon
 the first access.
 
+__NOTE__: this is not the same as using a cluster of nodes or replication as it will only create and
+set up independent client instances. Cluster and replication thus work with both single and multiple
+client configurations, you just need to provide the needed parameters and options for each instance
+of `Predis\Client`.
+
 You can find more details on how to use this provider in the `examples` directory or the test suite.
 
 ### Reporting bugs and contributing code ###
