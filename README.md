@@ -35,12 +35,12 @@ of clients with their own parameters and options using `predis.clients`:
 ```php
 $app->register(new Predis\Silex\ClientsServiceProvider(), [
     'predis.clients' => [
-        'first' => 'tcp://127.0.0.1:6379',
-        'second' => [
+        'client1' => 'tcp://127.0.0.1:6379',
+        'client2' => [
             'host' => '127.0.0.1',
             'port' => 6380,
         ],
-        'third' => [
+        'client3' => [
             'parameters' => 'tcp://127.0.0.1:6381',
             'options' => [
                 'profile' => 'dev',
