@@ -2,7 +2,9 @@
 
 [![Latest Stable Version](https://poser.pugx.org/predis/service-provider/v/stable.png)](https://packagist.org/packages/predis/service-provider)
 [![Total Downloads](https://poser.pugx.org/predis/service-provider/downloads.png)](https://packagist.org/packages/predis/service-provider)
+[![License](https://poser.pugx.org/predis/service-provider/license.svg)](https://packagist.org/packages/predis/service-provider)
 [![Build Status](https://travis-ci.org/nrk/PredisServiceProvider.svg?branch=master)](https://travis-ci.org/nrk/PredisServiceProvider)
+[![HHVM Status](http://hhvm.h4cc.de/badge/predis/service-provider.png)](http://hhvm.h4cc.de/package/predis/service-provider)
 
 This service provider for [Silex](http://silex-project.org/) allows developers to easily configure
 and expose [Predis](http://github.com/nrk/predis) enabling them to use [Redis](http://redis.io) in
