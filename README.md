@@ -82,7 +82,9 @@ consistent while working on the project.
 
 ### Author ###
 
-- [Daniele Alessandri](mailto:suppakilla@gmail.com) ([twitter](http://twitter.com/JoL1hAHN))
+- [Daniele Alessandri](mailto:suppakilla@gmail.com)
+  ([github](http://github.com/nrk))
+  ([twitter](http://twitter.com/JoL1hAHN))
 
 
 ### Contributors ###
