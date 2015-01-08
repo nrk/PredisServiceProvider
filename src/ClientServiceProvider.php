@@ -12,10 +12,11 @@
 namespace Predis\Silex;
 
 use InvalidArgumentException;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 use Predis\Client;
 use Predis\Connection\Parameters;
-use Silex\Application;
-use Silex\ServiceProviderInterface;
+
 
 /**
  * Exposes a single instance of Predis\Client to Silex.
@@ -39,14 +40,6 @@ class ClientServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function boot(Application $app)
-    {
-        // NOOP
-    }
-
-    /**
      * Returns an anonymous function used by the service provider initialize
      * lazily new instances of Predis\Client.
      *
@@ -55,13 +48,13 @@ class ClientServiceProvider implements ServiceProviderInterface
      *
      * @return \Closure
      */
-    protected function getClientInitializer(Application $app, $prefix)
+    protected function getClientInitializer(Container $app, $prefix)
     {
         return $app->protect(function ($args) use ($app, $prefix) {
             $extract = function ($bag, $key) use ($app, $prefix) {
                 $default = "default_$key";
 
-                if ($bag instanceof Application) {
+                if ($bag instanceof Container) {
                     $key = "$prefix.$key";
                 }
 
@@ -96,19 +89,19 @@ class ClientServiceProvider implements ServiceProviderInterface
      *
      * @return mixed
      */
-    protected function getProviderHandler(Application $app, $prefix)
+    protected function getProviderHandler(Container $app, $prefix)
     {
-        return $app->share(function () use ($app, $prefix) {
+        return function () use ($app, $prefix) {
             $initializer = $app["$prefix.client_initializer"];
 
             return $initializer($app);
-        });
+        };
     }
 
     /**
      * {@inheritdoc}
      */
-    public function register(Application $app)
+    public function register(Container $app)
     {
         $prefix = $this->prefix;
 

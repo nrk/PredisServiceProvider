@@ -11,7 +11,7 @@
 
 namespace Predis\Silex;
 
-use Silex\Application;
+use Pimple\Container;
 use Predis\Silex\Container\ClientsContainer;
 
 /**
@@ -24,13 +24,13 @@ class ClientsServiceProvider extends ClientServiceProvider
     /**
      * {@inheritdoc}
      */
-    protected function getProviderHandler(Application $app, $prefix)
+    protected function getProviderHandler(Container $app, $prefix)
     {
-        return $app->share(function () use ($app, $prefix) {
+        return function () use ($app, $prefix) {
             $clients = $app["{$prefix}.clients_container"]($prefix);
 
             foreach ($app["$prefix.clients"] as $alias => $args) {
-                $clients[$alias] = $clients->share(function () use ($app, $prefix, $args) {
+                $clients[$alias] = function () use ($app, $prefix, $args) {
                     $initializer = $app["$prefix.client_initializer"];
 
                     if (is_string($args)) {
@@ -40,17 +40,17 @@ class ClientsServiceProvider extends ClientServiceProvider
                     }
 
                     return $initializer($args);
-                });
+                };
             }
 
             return $clients;
-        });
+        };
     }
 
     /**
      * {@inheritdoc}
      */
-    public function register(Application $app)
+    public function register(Container $app)
     {
         $app["{$this->prefix}.clients"] = array();
 

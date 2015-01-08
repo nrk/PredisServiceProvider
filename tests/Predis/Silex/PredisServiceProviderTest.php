@@ -11,7 +11,7 @@
 
 namespace Predis\Silex;
 
-use Silex\Application;
+use Pimple\Container;
 use Predis\Client;
 use Predis\Profile\Factory as ProfileFactory;
 
@@ -22,7 +22,7 @@ class ClientServiceProviderTest extends ProviderTestCase
         return new ClientServiceProvider($prefix);
     }
 
-    protected function checkRegisteredProvider(Application $app, $prefix)
+    protected function checkRegisteredProvider(Container $app, $prefix)
     {
         $this->assertInstanceOf('Predis\Client', $app[$prefix]);
         $this->assertInternalType('array', $app["$prefix.default_options"]);
