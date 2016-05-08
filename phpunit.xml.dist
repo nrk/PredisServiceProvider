@@ -3,7 +3,7 @@
 <phpunit bootstrap="tests/bootstrap.php">
     <testsuites>
         <testsuite name="PredisServiceProvider Test Suite">
-            <directory suffix=".php">tests/Predis/Silex/</directory>
+            <directory suffix=".php">tests/Predis/Pimple/</directory>
         </testsuite>
     </testsuites>
 

@@ -4,7 +4,7 @@ require __DIR__.'/../vendor/autoload.php';
 
 $app = new Silex\Application();
 
-$app->register(new Predis\Silex\ClientServiceProvider(), array(
+$app->register(new Predis\Pimple\ClientServiceProvider(), array(
     'predis.parameters' => [
         'tcp://127.0.0.1:6379?alias=node-01',
         'tcp://127.0.0.1:6380?alias=node-02',

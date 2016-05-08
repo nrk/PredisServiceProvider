@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Predis\Silex;
+namespace Predis\Pimple;
 
 use Pimple\Container;
 use Predis\Client;

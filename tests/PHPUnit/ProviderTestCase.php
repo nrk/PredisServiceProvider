@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Predis\Silex;
+namespace Predis\Pimple;
 
 use PHPUnit_Framework_TestCase as StandardTestCase;
 use Pimple\Container;

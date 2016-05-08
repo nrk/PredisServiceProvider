@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Predis\Silex;
+namespace Predis\Pimple;
 
 use Pimple\Container;
-use Predis\Silex\Container\ClientsContainer;
+use Predis\Pimple\Container\ClientsContainer;
 
 /**
- * Exposes multiple instances of Predis\Client to Silex.
+ * Exposes multiple instances of Predis\Client to Pimple.
  *
  * @author Daniele Alessandri <suppakilla@gmail.com>
  */
