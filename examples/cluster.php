@@ -6,9 +6,9 @@ $app = new Silex\Application();
 
 $app->register(new Predis\Silex\ClientServiceProvider(), array(
     'predis.parameters' => [
-        'tcp://127.0.0.1:6380?alias=node-01',
-        'tcp://127.0.0.1:6381?alias=node-02',
-        'tcp://127.0.0.1:6382?alias=node-03',
+        'tcp://127.0.0.1:6379?alias=node-01',
+        'tcp://127.0.0.1:6380?alias=node-02',
+        'tcp://127.0.0.1:6381?alias=node-03',
     ],
     'predis.options'    => array(
         'profile' => '3.0',

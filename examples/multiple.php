@@ -29,8 +29,8 @@ $app->register(new Predis\Silex\ClientsServiceProvider(), array(
     ),
     'predis.default_options' => array(
         'connections' => array(
-            'tcp'  => 'Predis\Connection\PhpiredisConnection',
-            'unix' => 'Predis\Connection\PhpiredisConnection',
+            'tcp'  => 'Predis\Connection\PhpiredisStreamConnection',
+            'unix' => 'Predis\Connection\PhpiredisStreamConnection',
         ),
     ),
 ));

@@ -17,14 +17,14 @@ $app->register(new Predis\Silex\ClientsServiceProvider(), array(
 ));
 
 $app->register(new Silex\Provider\SessionServiceProvider(), array(
-    'session.storage.handler' => $app->share(function () use ($app) {
+    'session.storage.handler' => function ($app) {
         $client = $app['predis']['session'];
         $options = array('gc_maxlifetime' => 300);
 
         $handler = new Predis\Session\Handler($client, $options);
 
         return $handler;
-    })
+    }
 ));
 
 $app->get('/', function () use ($app) {
