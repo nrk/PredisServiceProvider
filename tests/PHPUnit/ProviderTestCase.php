@@ -12,8 +12,7 @@
 namespace Predis\Silex;
 
 use PHPUnit_Framework_TestCase as StandardTestCase;
-use Pimple;
-use Silex\Application;
+use Pimple\Container;
 use Predis\Client;
 
 /**
@@ -25,10 +24,9 @@ abstract class ProviderTestCase extends StandardTestCase
 
     protected function register(Array $arguments = array(), ClientServiceProvider $provider = null)
     {
-        $app = new Application();
+        $app = new Container();
 
         $app->register($provider ?: $this->getProviderInstance(), $arguments);
-        $app->boot();
 
         return $app;
     }
@@ -50,7 +48,7 @@ abstract class ProviderTestCase extends StandardTestCase
         return array($parameters, $options);
     }
 
-    protected function checkParameters(Pimple $container, $clientID, $parameters)
+    protected function checkParameters(Container $container, $clientID, $parameters)
     {
         list($params,) = $this->getParametersAndOptions($container[$clientID]);
 
