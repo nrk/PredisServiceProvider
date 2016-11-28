@@ -43,8 +43,8 @@ class ClientServiceProvider implements ServiceProviderInterface
      * Returns an anonymous function used by the service provider initialize
      * lazily new instances of Predis\Client.
      *
-     * @param Application $app
-     * @param string      $prefix
+     * @param Container $app
+     * @param string    $prefix
      *
      * @return \Closure
      */
@@ -84,8 +84,8 @@ class ClientServiceProvider implements ServiceProviderInterface
      * Returns an anonymous function used by the service provider to handle
      * accesses to the root prefix.
      *
-     * @param Application $app
-     * @param string      $prefix
+     * @param Container $app
+     * @param string    $prefix
      *
      * @return mixed
      */

@@ -41,9 +41,8 @@ class ClientsContainer extends Container
     {
         if (isset($this->application["{$this->prefix}.default_client"])) {
             $default = $this->application["{$this->prefix}.default_client"];
-            $value = call_user_func_array(array($this[$default], $method), $arguments);
 
-            return $value;
+            return call_user_func_array(array($this[$default], $method), $arguments);
         }
 
         throw new BadMethodCallException("Undefined method `$method`.");
