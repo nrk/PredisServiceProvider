@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Predis\Silex;
+namespace Predis\Pimple;
 
 use InvalidArgumentException;
 use Pimple\Container;
@@ -19,7 +19,7 @@ use Predis\Connection\Parameters;
 
 
 /**
- * Exposes a single instance of Predis\Client to Silex.
+ * Exposes a single instance of Predis\Client to Pimple.
  *
  * @author Daniele Alessandri <suppakilla@gmail.com>
  */
@@ -28,7 +28,7 @@ class ClientServiceProvider implements ServiceProviderInterface
     protected $prefix;
 
     /**
-     * @param string $prefix Prefix name used to register the service provider in Silex.
+     * @param string $prefix Prefix name used to register the service provider in Pimple.
      */
     public function __construct($prefix = 'predis')
     {
