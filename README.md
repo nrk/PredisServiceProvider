@@ -49,7 +49,7 @@ $app->register(new Predis\Silex\ClientsServiceProvider(), [
                 'prefix'  => 'silex:',
             ],
         ],
-    ),
+    ],
 ]);
 ```
 
